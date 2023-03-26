@@ -1,9 +1,9 @@
-resource "kubernetes_horizontal_pod_autoscaler_v1" "mdona_cloud_sqlproxy_hpa" {
+resource "kubernetes_horizontal_pod_autoscaler_v1" "hpa_devops_challenge" {
     metadata {
-      name = "application"
-      namespace = var.namespace
+      name = local.deploy_name
+      namespace = local.namespace
       labels = {
-        "app.kubernetes.io/name" = "application"
+        "app/name" = local.deploy_name
       }
     }
 
@@ -13,7 +13,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v1" "mdona_cloud_sqlproxy_hpa" {
         scale_target_ref {
           api_version = "apps/v1beta1"
           kind = "Deployment"
-          name = "application"
+          name = local.deploy_name
         }
         target_cpu_utilization_percentage = 70
     }

@@ -1,19 +1,19 @@
-resource "kubernetes_deployment_v1" "mdona_cloud_sqlproxy_deploy" {
+resource "kubernetes_deployment_v1" "deploy_devops_challenge" {
     metadata {
         name = local.deploy_name
         namespace = local.namespace
         labels = {
-            "app.kubernetes.io/name" = local.deploy_name
+            "app/name" = local.deploy_name
         }
     }
 
     spec {
         progress_deadline_seconds = 600
-        replicas = 3
+        replicas = 1
         revision_history_limit = 10
         selector {
             match_labels = {
-                "app.kubernetes.io/name" = local.deploy_name
+                "app/name" = local.deploy_name
             }
         }
         strategy {
@@ -26,7 +26,7 @@ resource "kubernetes_deployment_v1" "mdona_cloud_sqlproxy_deploy" {
         template {
             metadata {
                 labels = {
-                    "app.kubernetes.io/name" = local.deploy_name
+                    "app/name" = local.deploy_name
                 }
             }
             spec {
@@ -40,8 +40,8 @@ resource "kubernetes_deployment_v1" "mdona_cloud_sqlproxy_deploy" {
                           "memory" = "400Mi"
                         }
                         requests = {
-                            "cpu" = "100m"
-                            "memory" = "200Mi"
+                            "cpu" = "60m"
+                            "memory" = "100Mi"
                         }
                     }
                     termination_message_path = "/dev/termination-log"
@@ -60,4 +60,8 @@ resource "kubernetes_deployment_v1" "mdona_cloud_sqlproxy_deploy" {
             metadata[0].name,
         ]
     }
+
+    depends_on = [
+      kubernetes_namespace.namespace_devops_challenge
+    ]
 }

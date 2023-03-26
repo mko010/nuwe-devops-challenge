@@ -1,24 +1,7 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: application
-  namespace: devops-challenge
-spec:
-  progressDeadlineSeconds: 600
-  replicas: 3
-  revisionHistoryLimit: 10
-  strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
-    type: RollingUpdate
-    spec:
-        image: eu.gcr.io/ashyiuxwrqr2ga014uqhvvejykgukw/devops-challenge@sha256:5421debb1c11fca4462130b330511656aac168494a5508219eb29cbcb7a6e35a
-        imagePullPolicy: IfNotPresent 
-        resources:
-          limits:
-            cpu: 300m
-            memory: 756Mi
-          requests:
-            cpu: 20m
-            memory: 384Mi
+version: "latest"
+services:
+  vue:
+    build: .
+    ports:
+      - "3000:3000"
+    image: "eu.gcr.io/ashyiuxwrqr2ga014uqhvvejykgukw/devops-challenge@sha256:5421debb1c11fca4462130b330511656aac168494a5508219eb29cbcb7a6e35a"

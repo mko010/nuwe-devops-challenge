@@ -5,16 +5,27 @@ metadata:
   namespace: devops-challenge
 spec:
   progressDeadlineSeconds: 600
-  replicas: 3
+  replicas: 1
   revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app/name: "application"
   strategy:
+    type: RollingUpdate
     rollingUpdate:
       maxSurge: 25%
       maxUnavailable: 25%
-    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app/name: "application"
     spec:
+      containers:
+      - name: application
         image: eu.gcr.io/ashyiuxwrqr2ga014uqhvvejykgukw/devops-challenge@sha256:5421debb1c11fca4462130b330511656aac168494a5508219eb29cbcb7a6e35a
-        imagePullPolicy: IfNotPresent 
+        ports:
+          - containerPort: 3000
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
             cpu: 300m
@@ -22,3 +33,5 @@ spec:
           requests:
             cpu: 20m
             memory: 384Mi
+        terminationMessagePath: "/dev/termination-log"
+        terminationMessagePolicy: "File"

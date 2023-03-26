@@ -9,3 +9,13 @@ terraform {
         }
     }
 }
+
+provider "google" {
+  project     = local.project_id
+  region      = local.region
+  zone        = "${var.region}-b"
+}
+
+provider "kubernetes" {
+  config_path  = "~/.kube/config"
+}

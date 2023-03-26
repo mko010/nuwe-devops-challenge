@@ -1,24 +1,28 @@
-resource "kubernetes_service_v1" "mdona_cloud_sqlproxy_service" {
+resource "kubernetes_service_v1" "service_devops_challenge" {
   metadata {
-    name = "application-svc"
-    namespace = var.namespace
+    name = local.service_name
+    namespace = local.namespace
     labels = {
-      "app.kubernetes.io/name" = "application"
+      "app/name" = local.deploy_name
+    }
+    annotations = {
+      "cloud.google.com/neg" = "{\"ingress\": true}"
     }
   }
 
   spec {
-    type = "ClusterIP"
-
+    allocate_load_balancer_node_ports = true
+    external_traffic_policy = "Cluster"
+    internal_traffic_policy = "Cluster"
     port {
-      name = "svc-tcp-${var.ports[count.index]}"
-      port = tonumber(var.ports[count.index])
+      port = local.port
       protocol = "TCP"
-      target_port = "port-tcp-${var.ports[count.index]}"
+      target_port = local.port
     }
-    
     selector = {
-      "app.kubernetes.io/name" = "application"
+      "app/name" = local.deploy_name
     }
+    session_affinity = "None"
+    type = "LoadBalancer"
   }
 }
