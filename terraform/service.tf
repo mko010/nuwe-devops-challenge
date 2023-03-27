@@ -29,4 +29,8 @@ resource "kubernetes_service_v1" "service_devops_challenge" {
       metadata[0].annotations
     ]
   }
+
+  depends_on = [
+    kubernetes_namespace.namespace_devops_challenge
+  ]
 }
