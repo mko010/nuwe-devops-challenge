@@ -25,6 +25,7 @@ resource "kubernetes_ingress_v1" "ingress_devops_challenge" {
   }
 
   depends_on = [
+    kubernetes_namespace.namespace_devops_challenge,
     google_compute_global_address.external_ip_devops_challenge
   ]
 }
