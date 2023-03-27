@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: external-ip-devops-challenge
+  name: devops-challenge-ingress
+  namespace: devops-challenge
+spec:
+  defaultBackend:
+    service:
+      name: application-svc
+      port:
+        number: 3000

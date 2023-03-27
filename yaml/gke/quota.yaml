@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: application-quota
+  namespace: devops-challenge
+spec:
+  hard:
+    limits.cpu: 1620m
+    limits.memory: 2048Mi
+    # requests.cpu: 180m
+    # requests.memory: 100Mi

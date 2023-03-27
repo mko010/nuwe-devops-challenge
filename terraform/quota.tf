@@ -1,15 +1,15 @@
 resource "kubernetes_resource_quota" "quota_devops_challenge" {
   metadata {
-    name = "${local.deploy_name}-resource-quota"
+    name      = "${local.deploy_name}-resource-quota"
     namespace = local.namespace
   }
 
   spec {
     hard = {
-      "requests.cpu"           = "190m"
-      "requests.memory"        = "310Mi"
-      "limits.cpu"             = "1500m"
-      "limits.memory"          = "1536Mi"
+      # "requests.cpu"    = "180m"
+      # "requests.memory" = "100Mi"
+      "limits.cpu"      = "1620m"
+      "limits.memory"   = "2048Mi"
     }
   }
   depends_on = [

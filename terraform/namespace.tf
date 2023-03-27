@@ -2,9 +2,9 @@ resource "kubernetes_namespace" "namespace_devops_challenge" {
   metadata {
     name = local.namespace
 
-    labels  = {
-        owner        = "MediaMarkt"
-        application  = local.deploy_name
+    labels = {
+      owner       = "MediaMarkt"
+      application = local.deploy_name
     }
   }
   lifecycle {

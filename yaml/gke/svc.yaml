@@ -3,11 +3,9 @@ kind: Service
 metadata:
   annotations:
     cloud.google.com/neg: '{"ingress":true}'
-  name: application-service
+  name: application-svc
   namespace: devops-challenge
 spec:
-  allocateLoadBalancerNodePorts: true
-  externalTrafficPolicy: Cluster
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
@@ -19,4 +17,4 @@ spec:
   selector:
     app/name: application
   sessionAffinity: None
-  type: LoadBalancer
+  type: ClusterIP

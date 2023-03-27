@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    application: application
+    owner: MediaMarkt
+  name: application
